@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Your country</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="wrapper">
+  <input placeholder="Enter any country name" value="Iraq" type="text" id="text" onchange="change()">
+    <img class="img" src="#" alt="flag">
+    <div class="info">
+      <span>
+        <p>Country:</p>
+        <p id="c_name"></p>
+      </span>
+      <span>
+        <p>Capital:</p>
+        <p id="cp_name"></p>
+      </span>
+      <span>
+        <p>Population:</p>
+        <p id="p_num"></p>
+      </span>
+    </div>
+  </div>
+  <a href="https://facebook.com/safen.iq">Created By SOFIAN MOHAMMAD</a>
+  <script>
+  function change(){
+   let img=document.querySelector('.img');
+   let c_name=document.getElementById('c_name');
+   let cp_name=document.getElementById('cp_name');
+   let p_num=document.getElementById('p_num');
+   
+   let api="https://restcountries.com/v3.1/name/";
+   let count=document.getElementById("text").value;
+   if(count=="iraq" || count=="iraq"){
+       count="Iraq"
+   }
+   if(count=="china" || count=="China" || count=="chin"){
+       api="https://restcountries.com/v2/name/";
+   }
+   
+  fetch(api+count).then((response)=>{
+   
+     return response.json();
+     
+   }).then(([data])=>{
+      if(count=="china" || count=="China" || count=="chin"){
+       c_name.innerHTML=data.name;
+   }else{
+       c_name.innerHTML=data.name.common;
+   }
+     img.src= data.flags.svg;
+     
+     cp_name.innerHTML=data.capital;
+     p_num.innerHTML=data.population;
+   }).catch((err)=>{
+       console.log("Please enter valid country name");
+   })
+   
+   }
+   change();
+   
+  </script>
+</body>
+</html>
